@@ -3,6 +3,7 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SchemaOrg from '../components/SchemaOrg.astro';
+import SoundToggle from '../components/SoundToggle.astro';
 import { site } from '../data/site.js';
 
 const {
@@ -46,5 +47,6 @@ const noindex = import.meta.env.PUBLIC_NOINDEX === '1' || import.meta.env.PUBLIC
       <slot />
     </main>
     <SiteFooter />
+    <SoundToggle />
   </body>
 </html>

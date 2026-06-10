@@ -1,0 +1,28 @@
+---
+// Opt-in audio. A small fixed button that plays the café's phone-greeting clip
+// only when the visitor taps it (never autoplay — browsers block it anyway and
+// it's bad UX). Tap again to stop. Off by default.
+---
+<button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false"
+        aria-label="Play the Newport Cafe phone greeting" title="Hear us answer the phone">
+  <span class="sound-toggle__icon" aria-hidden="true">🔊</span>
+  <span class="sound-toggle__txt">Hear us</span>
+</button>
+<audio id="cafe-audio" src="/audio/greeting.m4a" preload="none"></audio>
+
+<script>
+  const btn = document.getElementById('sound-toggle');
+  const audio = document.getElementById('cafe-audio');
+  if (btn && audio) {
+    const setState = (playing) => {
+      btn.setAttribute('aria-pressed', String(playing));
+      btn.classList.toggle('is-playing', playing);
+      btn.querySelector('.sound-toggle__txt').textContent = playing ? 'Stop' : 'Hear us';
+    };
+    btn.addEventListener('click', () => {
+      if (audio.paused) { audio.play().then(() => setState(true)).catch(() => {}); }
+      else { audio.pause(); setState(false); }
+    });
+    audio.addEventListener('ended', () => setState(false));
+  }
+</script>

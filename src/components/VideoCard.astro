@@ -8,10 +8,16 @@ if (video.type === 'youtube' && !video.id) {
   // Empty placeholder slot (kept for parity with old behavior).
 }
 const ytThumb = video.type === 'youtube' && video.id ? `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg` : '';
+const ytPoster = video.poster || ytThumb;
 ---
 
 {video.type === 'youtube' && video.id && (
-  <button class="video-facade" style={`background-image:url('${ytThumb}')`} data-yt={video.id} aria-label={`Play video: ${video.label}`}>
+  <button
+    class:list={['video-facade', { 'is-portrait': video.orientation === 'portrait' }]}
+    style={`background-image:url('${ytPoster}')`}
+    data-yt={video.id}
+    aria-label={`Play video: ${video.label}`}
+  >
     <span class="video-facade__play" aria-hidden="true"><span></span></span>
     <span class="video-facade__label">{video.label}</span>
   </button>
