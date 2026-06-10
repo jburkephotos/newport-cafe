@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CharacterCast from '../components/CharacterCast.astro';
 import CharAccent from '../components/CharAccent.astro';
-import LiteYouTube from '../components/LiteYouTube.astro';
+import VideoCard from '../components/VideoCard.astro';
 import { site } from '../data/site.js';
 import { videos } from '../data/videos.js';
 
@@ -81,7 +81,7 @@ const gallery = [cafe1, cafe2, cafe3, cafe4];
             fried eggs on a 10-inch house-made bun. Think you can finish it?
           </p>
         </div>
-        <p class="showpiece__price">The Super Ultimate Monster — $55</p>
+        <p class="showpiece__price">The Super Ultimate Monster — $60</p>
         <p style="color:#e9ddc9">Or start smaller: The Monster (3&nbsp;lb) $18 · The Ultimate Monster (4&nbsp;lb) $25.</p>
         <a href="/menu#lunch-dinner" class="btn btn--maps btn--lg">Full burger lineup</a>
       </div>
@@ -148,7 +148,7 @@ const gallery = [cafe1, cafe2, cafe3, cafe4];
         <p>Videos load only when you press play, so the page stays fast.</p>
       </div>
       <div class="video-grid">
-        {videos.map((v) => <LiteYouTube id={v.id} label={v.label} title={v.label} />)}
+        {videos.map((v) => <VideoCard video={v} />)}
       </div>
     </div>
   </section>

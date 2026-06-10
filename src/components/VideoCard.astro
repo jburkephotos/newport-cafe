@@ -1,0 +1,66 @@
+---
+// Load-on-click video card. Handles YouTube (facade → nocookie iframe) and
+// self-hosted mp4 (poster → native <video>). Nothing loads until clicked, so
+// the page stays fast. Portrait clips pillarbox inside the 16:9 card.
+const { video } = Astro.props;
+
+if (video.type === 'youtube' && !video.id) {
+  // Empty placeholder slot (kept for parity with old behavior).
+}
+const ytThumb = video.type === 'youtube' && video.id ? `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg` : '';
+---
+
+{video.type === 'youtube' && video.id && (
+  <button class="video-facade" style={`background-image:url('${ytThumb}')`} data-yt={video.id} aria-label={`Play video: ${video.label}`}>
+    <span class="video-facade__play" aria-hidden="true"><span></span></span>
+    <span class="video-facade__label">{video.label}</span>
+  </button>
+)}
+
+{video.type === 'file' && (
+  <button
+    class:list={['video-facade', { 'is-portrait': video.orientation === 'portrait' }]}
+    style={`background-image:url('${video.poster}')`}
+    data-video={video.src}
+    aria-label={`Play video: ${video.label}`}
+  >
+    <span class="video-facade__play" aria-hidden="true"><span></span></span>
+    <span class="video-facade__label">{video.label}</span>
+  </button>
+)}
+
+{video.type === 'youtube' && !video.id && (
+  <div class="video-placeholder" role="note">
+    <div><strong>▶ Video slot: {video.label}</strong><br /><small>Add a YouTube ID in <code>src/data/videos.js</code>.</small></div>
+  </div>
+)}
+
+<script>
+  // Bound once; attaches to every facade on the page (Astro dedupes this script).
+  document.querySelectorAll('.video-facade').forEach((el) => {
+    if (el.dataset.bound) return;
+    el.dataset.bound = '1';
+    el.addEventListener('click', () => {
+      const yt = el.getAttribute('data-yt');
+      const file = el.getAttribute('data-video');
+      const label = el.getAttribute('aria-label') || 'Video';
+      if (yt) {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`;
+        iframe.title = label;
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        el.replaceChildren(iframe);
+      } else if (file) {
+        const v = document.createElement('video');
+        v.src = file;
+        v.controls = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        v.preload = 'metadata';
+        el.replaceChildren(v);
+      }
+    });
+  });
+</script>

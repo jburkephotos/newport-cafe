@@ -236,7 +236,7 @@ export const menu = [
         items: [
           { name: 'The Monster', desc: '3 lb', price: '18' },
           { name: 'The Ultimate Monster', desc: '4 lb', price: '25' },
-          { name: 'The Super Ultimate Monster', desc: '8 lb · 10-inch homemade bun · 8 fried eggs', price: '55' },
+          { name: 'The Super Ultimate Monster', desc: '8 lb · 10-inch homemade bun · 8 fried eggs', price: '60' },
         ],
       },
       {

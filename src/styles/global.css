@@ -280,6 +280,10 @@ h3 { font-size: 1.15rem; }
 .video-facade__play span::after { content: ""; border-style: solid; border-width: 11px 0 11px 19px; border-color: transparent transparent transparent #fff; margin-left: 4px; }
 .video-facade__label { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; color: #fff; font-weight: 700; background: linear-gradient(transparent, rgba(0,0,0,0.7)); text-align: left; }
 .video-facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* self-hosted clips: native video fills the 16:9 card, letterboxed on black */
+.video-facade video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+/* a vertical phone clip: show the whole frame (pillarboxed) instead of cropping */
+.video-facade.is-portrait { background-size: contain; background-color: #141414; }
 .video-placeholder {
   aspect-ratio: 16 / 9; border-radius: var(--radius); display: grid; place-items: center; text-align: center;
   background: repeating-linear-gradient(45deg, #f4ead4, #f4ead4 12px, #efe2c6 12px, #efe2c6 24px);
