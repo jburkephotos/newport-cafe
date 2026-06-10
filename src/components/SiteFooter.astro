@@ -1,0 +1,32 @@
+---
+import { site } from '../data/site.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <h3>{site.legalName}</h3>
+      <p>{site.blurb}</p>
+    </div>
+    <div>
+      <h3>Visit</h3>
+      <p>
+        {site.address.street}<br />
+        {site.address.city}, {site.address.region} {site.address.postalCode}<br />
+        <a href={site.mapsUrl} target="_blank" rel="noopener">Get directions →</a>
+      </p>
+    </div>
+    <div>
+      <h3>Hours &amp; Phone</h3>
+      <p>
+        {site.hoursDisplay}<br />
+        <em>{site.hoursNote}</em><br />
+        <a href={site.phoneHref}>{site.phoneDisplay}</a>
+      </p>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    © {year} {site.legalName}. Established {site.established} · Newport, Oregon.
+  </div>
+</footer>

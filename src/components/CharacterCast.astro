@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { characters } from '../data/characters.js';
+---
+
+<section class="section cast" aria-labelledby="cast-title">
+  <div class="container">
+    <div class="section__head">
+      <h2 id="cast-title">Meet the Newport Cafe crew</h2>
+      <p>Our own hometown superheroes — give one a tap (or a hover) and they’ll say hi.</p>
+    </div>
+
+    <div class="cast__grid" id="cast">
+      {characters.map((c) => (
+        <button
+          type="button"
+          class:list={['character', { 'is-founder': c.hero }]}
+          data-id={c.id}
+          data-audio={c.audio ?? undefined}
+          aria-label={`${c.name}: ${c.tagline}`}
+        >
+          <span class="character__bubble" role="status">{c.tagline}</span>
+          <Image src={c.img} alt={c.name} widths={[220, 440, 700]} sizes="(min-width:760px) 330px, 50vw" />
+          <span class="character__name">{c.name}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const grid = document.getElementById('cast');
+  if (grid) {
+    const cards = Array.from(grid.querySelectorAll('.character'));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Gentle floating (motion-safe only). The one-time fly-in entrance lives
+    // on King Pin in the hero, so the lineup just bobs in place.
+    if (!reduce) {
+      cards.forEach((c) => c.classList.add('is-float'));
+    }
+
+    const clear = (except) =>
+      cards.forEach((c) => { if (c !== except) c.classList.remove('is-active'); });
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const open = card.classList.toggle('is-active');
+        clear(open ? card : null);
+        // Optional tap-to-speak: only on a real user tap, never autoplay.
+        const src = card.getAttribute('data-audio');
+        if (open && src) { try { new Audio(src).play(); } catch (_) {} }
+      });
+    });
+
+    // Tap/click elsewhere closes any open bubble.
+    document.addEventListener('click', (e) => {
+      if (!grid.contains(e.target)) clear(null);
+    });
+  }
+</script>

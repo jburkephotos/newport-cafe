@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import { site } from '../data/site.js';
+
+const {
+  title = `${site.legalName} — Family Diner in Newport, Oregon`,
+  description = `${site.legalName}: family-style coastal diner in Newport, OR since ${site.established}. Breakfast, seafood, burgers and huge portions, open 7AM–10PM every day. ${site.phoneDisplay}.`,
+  schema = true,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// Keep the pages.dev preview out of search indexes. Set PUBLIC_NOINDEX=0 (or
+// delete the var) in the Cloudflare Pages env at domain cutover.
+const noindex = import.meta.env.PUBLIC_NOINDEX !== '0';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content={site.legalName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#c1272d" />
+
+    <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+
+    {schema && <SchemaOrg canonical={canonical} />}
+  </head>
+  <body>
+    <a href="#main" class="sr-only">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

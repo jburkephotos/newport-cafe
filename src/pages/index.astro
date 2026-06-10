@@ -1,0 +1,168 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CharacterCast from '../components/CharacterCast.astro';
+import CharAccent from '../components/CharAccent.astro';
+import LiteYouTube from '../components/LiteYouTube.astro';
+import { site } from '../data/site.js';
+import { videos } from '../data/videos.js';
+
+import logo from '../assets/brand/logo.png';
+import founderImg from '../assets/characters/founder.png';
+import queenImg from '../assets/characters/queen-m.png';
+import boltImg from '../assets/characters/bolt.png';
+import limelightImg from '../assets/characters/limelight.png';
+import babyfaceImg from '../assets/characters/babyface.png';
+import superBurger from '../assets/photos/super-ultimate-burger.png';
+import monsterBurger from '../assets/photos/monster-burger.png';
+import biscuitsGravy from '../assets/photos/biscuits-gravy.png';
+import burgerCar from '../assets/photos/burger-car.png';
+import cafe1 from '../assets/photos/cafe-1.jpg';
+import cafe2 from '../assets/photos/cafe-2.jpg';
+import cafe3 from '../assets/photos/cafe-3.jpg';
+import cafe4 from '../assets/photos/cafe-4.jpg';
+const gallery = [cafe1, cafe2, cafe3, cafe4];
+---
+
+<Base>
+  <!-- HERO -->
+  <section class="hero">
+    <CharAccent img={queenImg} pos="acc-queen" widths={[160, 320, 468]} sizes="(max-width:760px) 24vw, 234px" />
+    <CharAccent img={founderImg} pos="acc-founder" fly={true} widths={[220, 440, 680]} sizes="(max-width:760px) 30vw, 340px" />
+    <div class="container hero__inner">
+      <Image class="hero__logo" src={logo} alt={site.legalName} widths={[320, 640]} sizes="320px" loading="eager" />
+      <h1 class="sr-only">{site.legalName} — family diner in Newport, Oregon</h1>
+      <p class="hero__tag">{site.tagline}</p>
+      <div class="hero__cta">
+        <a href={site.phoneHref} class="btn btn--call btn--lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z"/></svg>
+          Call {site.phoneDisplay}
+        </a>
+        <a href="/menu" class="btn btn--maps btn--lg">See the Menu</a>
+      </div>
+
+      <div class="hero__badges">
+        {site.badges.map((b) => <span class="badge">{b}</span>)}
+      </div>
+
+      <!-- The three things phone visitors want, above the fold -->
+      <div class="facts">
+        <div class="fact">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span>{site.hoursDisplay}</span>
+        </div>
+        <a class="fact" href={site.mapsUrl} target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span>{site.address.street}, {site.address.city}</span>
+        </a>
+        <a class="fact" href={site.phoneHref}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--red)" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z"/></svg>
+          <span>{site.phoneDisplay}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARACTER CAST -->
+  <CharacterCast />
+
+  <!-- SIGNATURE: SUPER ULTIMATE MONSTER BURGER -->
+  <section class="section show-burger has-accents" aria-labelledby="burger-title">
+    <CharAccent img={boltImg} pos="acc-bolt" desktopOnly={true} widths={[140, 280, 360]} sizes="168px" />
+    <div class="container showpieces">
+      <div class="showpiece">
+        <Image src={superBurger} alt="The 8 lb Super Ultimate Monster Burger" widths={[400, 800]} sizes="(min-width:760px) 520px, 90vw" />
+      </div>
+      <div>
+        <div class="section__head" style="text-align:left">
+          <h2 id="burger-title">Home of the 8&nbsp;lb Super Ultimate Monster Burger</h2>
+          <p>
+            Eight pounds of homemade burger, grilled onions, ham and <strong>eight</strong>
+            fried eggs on a 10-inch house-made bun. Think you can finish it?
+          </p>
+        </div>
+        <p class="showpiece__price">The Super Ultimate Monster — $55</p>
+        <p style="color:#e9ddc9">Or start smaller: The Monster (3&nbsp;lb) $18 · The Ultimate Monster (4&nbsp;lb) $25.</p>
+        <a href="/menu#lunch-dinner" class="btn btn--maps btn--lg">Full burger lineup</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAMOUS FOR -->
+  <section class="section section--tint has-accents" aria-labelledby="famous-title">
+    <CharAccent img={limelightImg} pos="acc-limelight" desktopOnly={true} widths={[180, 360, 420]} sizes="200px" />
+    <div class="container">
+      <div class="section__head">
+        <h2 id="famous-title">What we’re famous for</h2>
+        <p>One of the most diverse menus in Newport — “looking for something specific? We probably have it.”</p>
+      </div>
+      <div class="showpieces">
+        <div class="showpiece">
+          <Image src={monsterBurger} alt="Monster Burger stack" widths={[360, 720]} sizes="(min-width:760px) 480px, 90vw" />
+          <p>Hand-pressed 1&nbsp;lb burgers &amp; the legendary Monster series</p>
+        </div>
+        <div class="showpiece">
+          <Image src={biscuitsGravy} alt="Homemade biscuits and country sausage gravy" widths={[360, 720]} sizes="(min-width:760px) 480px, 90vw" />
+          <p>All-day breakfast, fresh Yaquina Bay oysters &amp; clam chowder in a bread bowl</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section class="section" aria-labelledby="gallery-title">
+    <div class="container">
+      <div class="section__head"><h2 id="gallery-title">Straight from the griddle</h2></div>
+      <div class="gallery">
+        {gallery.map((src, i) => (
+          <Image src={src} alt={`Newport Cafe food and dining ${i + 1}`} widths={[300, 600]} sizes="(min-width:760px) 25vw, 45vw" loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ATMOSPHERE / SOCIAL PROOF: the burger-wrapped car -->
+  <section class="section section--tint" aria-labelledby="about-title">
+    <div class="container showpieces">
+      <div class="showpiece">
+        <Image src={burgerCar} alt="The burger-wrapped Newport Cafe car parked outside the diner" widths={[400, 800]} sizes="(min-width:760px) 520px, 90vw" loading="lazy" />
+      </div>
+      <div>
+        <div class="section__head" style="text-align:left">
+          <h2 id="about-title">A Newport tradition since {site.established}</h2>
+          <p>{site.blurb} You can’t miss us on Highway 101 — just look for the burger on wheels.</p>
+        </div>
+        <div class="hero__cta" style="justify-content:flex-start">
+          <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn--maps">Get directions</a>
+          <a href={site.phoneHref} class="btn btn--ghost">Call ahead</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="section" aria-labelledby="video-title">
+    <div class="container">
+      <div class="section__head">
+        <h2 id="video-title">See it in action</h2>
+        <p>Videos load only when you press play, so the page stays fast.</p>
+      </div>
+      <div class="video-grid">
+        {videos.map((v) => <LiteYouTube id={v.id} label={v.label} title={v.label} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="section section--tint has-accents" style="text-align:center">
+    <CharAccent img={babyfaceImg} pos="acc-babyface" desktopOnly={true} widths={[140, 280, 360]} sizes="158px" />
+    <div class="container">
+      <h2>Open every day, 7&nbsp;AM–10&nbsp;PM</h2>
+      <p style="color:var(--ink-soft)">{site.hoursNote} · {site.address.street}, {site.address.city}, {site.address.region}</p>
+      <div class="hero__cta">
+        <a href={site.phoneHref} class="btn btn--call btn--lg">Call {site.phoneDisplay}</a>
+        <a href="/menu" class="btn btn--maps btn--lg">View Menu</a>
+      </div>
+    </div>
+  </section>
+</Base>

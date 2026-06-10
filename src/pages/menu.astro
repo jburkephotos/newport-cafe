@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import { menu, standingNotes } from '../data/menu.js';
+import { site } from '../data/site.js';
+
+const title = `Menu — ${site.legalName} | Newport, Oregon`;
+const description = `The full Newport Cafe menu: all-day breakfast, seafood, 1 lb burgers, the 8 lb Super Ultimate Monster Burger, soups, salads and more. Newport, OR. ${site.phoneDisplay}.`;
+---
+
+<Base title={title} description={description}>
+  <section class="menu-hero">
+    <div class="container">
+      <h1>Our Menu</h1>
+      <p style="color:var(--ink-soft);max-width:60ch;margin:0 auto">
+        All-day breakfast, fresh seafood, homemade everything, and famously huge portions.
+      </p>
+      <nav class="menu-toc" aria-label="Menu sections">
+        {menu.map((s) => <a class="btn btn--ghost" href={`#${s.id}`}>{s.title}</a>)}
+        <a class="btn btn--maps" href="/menu/Newport-Cafe-Menu-2024.pdf" target="_blank" rel="noopener">⬇ Full menu (PDF)</a>
+      </nav>
+    </div>
+  </section>
+
+  <div class="container">
+    {menu.map((section) => (
+      <section class="menu-section" id={section.id}>
+        <h2>{section.title}</h2>
+        {section.groups.map((group) => (
+          <div class="menu-group">
+            <div class="menu-group__head">
+              <h3>{group.title}</h3>
+              {group.priceAll && <span class="menu-group__all">${group.priceAll}</span>}
+            </div>
+            {group.note && <p class="menu-group__note">{group.note}</p>}
+            <ul class="menu-list">
+              {group.items.map((item) => (
+                <li class="menu-item">
+                  <span class="menu-item__main">
+                    <span class="menu-item__name">{item.name}</span>
+                    {item.desc && <span class="menu-item__desc"> — {item.desc}</span>}
+                  </span>
+                  {item.price && <>
+                    <span class="menu-item__dots" aria-hidden="true"></span>
+                    <span class="menu-item__price">{item.price}</span>
+                  </>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
+    ))}
+
+    <ul class="menu-notes" aria-label="Menu notes">
+      {standingNotes.map((n) => <li>{n}</li>)}
+    </ul>
+
+    <p style="text-align:center;margin:30px 0 50px">
+      <a href={site.phoneHref} class="btn btn--call btn--lg">Call to order: {site.phoneDisplay}</a>
+    </p>
+  </div>
+</Base>

@@ -1,0 +1,18 @@
+{
+  "name": "newport-cafe",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Newport Cafe — static marketing site (Astro)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.5.5",
+    "sharp": "^0.33.5"
+  }
+}

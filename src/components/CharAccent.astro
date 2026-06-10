@@ -1,0 +1,22 @@
+---
+// Decorative floating hero, scattered around the page (distinct from the
+// interactive cast lineup). Purely visual: aria-hidden, pointer-events:none so
+// it never blocks a tap/link, gently floats, and is motion-safe. Placement +
+// size come from the `pos` class. `fly` gives it the one-time entrance.
+import { Image } from 'astro:assets';
+const {
+  img,
+  pos,
+  fly = false,
+  desktopOnly = false,
+  widths = [180, 360, 540],
+  sizes = '(max-width: 760px) 34vw, 340px',
+} = Astro.props;
+---
+
+<div
+  class:list={['char-accent', pos, { 'is-fly': fly, 'is-desktop-only': desktopOnly }]}
+  aria-hidden="true"
+>
+  <Image src={img} alt="" widths={widths} sizes={sizes} loading="eager" />
+</div>
