@@ -1,7 +1,10 @@
 ---
-// Opt-in audio. A small fixed button that plays the café's phone-greeting clip
-// only when the visitor taps it (never autoplay — browsers block it anyway and
-// it's bad UX). Tap again to stop. Off by default.
+// The café's phone-greeting clip (the owner's kid answering the phone).
+// Two ways to hear it, both rule-respecting (no autoplay-on-load):
+//  1) the fixed button — tap to play / tap to stop, anytime
+//  2) a one-time "greet" — the first time the visitor interacts with the page
+//     (a tap/click/keypress, which browsers DO allow), it plays once, then
+//     stays quiet for the rest of that visit (remembered via sessionStorage).
 ---
 <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false"
         aria-label="Play the Newport Cafe phone greeting" title="Hear us answer the phone">
@@ -14,15 +17,36 @@
   const btn = document.getElementById('sound-toggle');
   const audio = document.getElementById('cafe-audio');
   if (btn && audio) {
+    const txt = btn.querySelector('.sound-toggle__txt');
+    const GREETED = 'nc-greeted';
+    const remember = () => { try { sessionStorage.setItem(GREETED, '1'); } catch (e) {} };
+    const greeted = () => { try { return !!sessionStorage.getItem(GREETED); } catch (e) { return false; } };
     const setState = (playing) => {
       btn.setAttribute('aria-pressed', String(playing));
       btn.classList.toggle('is-playing', playing);
-      btn.querySelector('.sound-toggle__txt').textContent = playing ? 'Stop' : 'Hear us';
+      txt.textContent = playing ? 'Stop' : 'Hear us';
     };
+
+    // 1) Manual button
     btn.addEventListener('click', () => {
+      remember();
       if (audio.paused) { audio.play().then(() => setState(true)).catch(() => {}); }
       else { audio.pause(); setState(false); }
     });
     audio.addEventListener('ended', () => setState(false));
+
+    // 2) Greet once on the first real interaction (a user gesture lets audio
+    //    play). Skips the button itself, and only once per visit.
+    if (!greeted()) {
+      const greet = (e) => {
+        if (btn.contains(e.target)) return; // the button handles its own taps
+        remember();
+        window.removeEventListener('pointerdown', greet, true);
+        window.removeEventListener('keydown', greet, true);
+        audio.play().then(() => setState(true)).catch(() => {});
+      };
+      window.addEventListener('pointerdown', greet, true);
+      window.addEventListener('keydown', greet, true);
+    }
   }
 </script>
