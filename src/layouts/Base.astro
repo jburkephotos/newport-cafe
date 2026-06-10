@@ -12,9 +12,9 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-// Keep the pages.dev preview out of search indexes. Set PUBLIC_NOINDEX=0 (or
-// delete the var) in the Cloudflare Pages env at domain cutover.
-const noindex = import.meta.env.PUBLIC_NOINDEX !== '0';
+// Live on thenewportcafe.com — indexable by default. To temporarily hide a
+// build from search (e.g. a staging deploy), set PUBLIC_NOINDEX=1 at build time.
+const noindex = import.meta.env.PUBLIC_NOINDEX === '1' || import.meta.env.PUBLIC_NOINDEX === 'true';
 ---
 
 <!doctype html>
