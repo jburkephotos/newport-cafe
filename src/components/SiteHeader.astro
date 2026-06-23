@@ -1,21 +1,30 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/brand/logo.png';
 import { site } from '../data/site.js';
+const { page = 'home' } = Astro.props;
+const links =
+  page === 'menu'
+    ? [
+        { href: '/', label: 'Home' },
+        { href: '#breakfast', label: 'Breakfast' },
+        { href: '#lunch', label: 'Lunch / Dinner' },
+      ]
+    : [
+        { href: '#crew', label: 'Crew' },
+        { href: '#monster', label: 'Monster' },
+        { href: '#visit', label: 'Visit' },
+        { href: '/menu', label: 'Menu' },
+      ];
+const navS = "font-family:'Anton',sans-serif;text-decoration:none;text-transform:uppercase;letter-spacing:1px;font-size:15px;padding:8px 11px;color:#17140F;";
 ---
 
-<header class="site-header">
-  <div class="container site-header__row">
-    <a href="/" class="site-header__logo" aria-label={`${site.legalName} home`}>
-      <Image src={logo} alt={site.legalName} height={88} densities={[1, 2]} loading="eager" />
+<header style="position:sticky;top:0;z-index:60;background:#fff;border-bottom:4px solid #17140F;box-shadow:0 4px 0 rgba(23,20,15,.12);">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 20px;">
+    <a href="/" aria-label={`${site.legalName} home`} style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <img src="/img/logo.png" alt={site.legalName} style="height:50px;width:auto;" />
     </a>
-    <nav aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/menu">Menu</a>
-      <a href={site.phoneHref} class="btn btn--call">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z"/></svg>
-        <span class="site-header__calltext">{site.phoneDisplay}</span>
-      </a>
+    <nav style="display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end;">
+      {links.map((l) => <a class="nav-link" href={l.href} style={navS}>{l.label}</a>)}
+      <a class="btn-pop" href={site.phoneHref} style="font-family:'Anton',sans-serif;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;font-size:15px;padding:9px 15px;margin-left:6px;background:#E23A2E;color:#fff;border:3px solid #17140F;box-shadow:4px 5px 0 rgba(23,20,15,.9);border-radius:3px;">Call</a>
     </nav>
   </div>
 </header>

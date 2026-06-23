@@ -1,62 +1,293 @@
 ---
 import Base from '../layouts/Base.astro';
-import { menu, standingNotes } from '../data/menu.js';
+import MenuSchema from '../components/MenuSchema.astro';
 import { site } from '../data/site.js';
-
 const title = `Menu — ${site.legalName} | Newport, Oregon`;
-const description = `The full Newport Cafe menu: all-day breakfast, seafood, 1 lb burgers, the 8 lb Super Ultimate Monster Burger, soups, salads and more. Newport, OR. ${site.phoneDisplay}.`;
+const description = `The full Newport Cafe menu: all-day breakfast, fresh seafood, 1 lb burgers, the 8 lb Super Ultimate Monster Burger ($60), soups, salads and more. Newport, OR. ${site.phoneDisplay}.`;
+const panelS = 'display:inline-block;width:100%;padding:18px 20px;margin:0 0 22px;break-inside:avoid;';
+const ruleS = 'height:3px;background:#17140F;margin:8px 0 6px;';
 ---
+<Base title={title} description={description} page="menu">
+  <MenuSchema />
 
-<Base title={title} description={description}>
-  <section class="menu-hero">
-    <div class="container">
-      <h1>Our Menu</h1>
-      <p style="color:var(--ink-soft);max-width:60ch;margin:0 auto">
-        All-day breakfast, fresh seafood, homemade everything, and famously huge portions.
-      </p>
-      <nav class="menu-toc" aria-label="Menu sections">
-        {menu.map((s) => <a class="btn btn--ghost" href={`#${s.id}`}>{s.title}</a>)}
-        <a class="btn btn--maps" href="/menu/Newport-Cafe-Menu-2024.pdf" target="_blank" rel="noopener">⬇ Full menu (PDF)</a>
-      </nav>
+  <!-- MENU HERO -->
+  <section class="halftone" style="position:relative;background:#FFCB05;padding:36px 20px 30px;border-bottom:5px solid #17140F;overflow:hidden;">
+    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+      <div style="flex:1 1 380px;">
+        <div style="display:inline-block;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1.5px;font-size:13px;background:#2747A8;color:#fff;padding:5px 12px;border:2px solid #17140F;transform:rotate(-2deg);">Homemade everything</div>
+        <h1 class="h1-giant" style="font-family:'Bangers',cursive;font-weight:400;font-size:84px;line-height:.84;margin:14px 0 8px;color:#fff;-webkit-text-stroke:3px #17140F;text-shadow:5px 5px 0 #E23A2E;">THE MENU</h1>
+        <p style="font-weight:700;font-size:17px;max-width:440px;color:#3a3118;margin:0 0 16px;">All-day breakfast, fresh seafood, hand-pressed burgers, and famously huge portions. Looking for something specific? We probably have it.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <a class="chip" href="#breakfast" style="font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.5px;font-size:13px;text-decoration:none;background:#fff;color:#17140F;border:3px solid #17140F;padding:8px 14px;border-radius:3px;">Breakfast</a>
+          <a class="chip" href="#lunch" style="font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.5px;font-size:13px;text-decoration:none;background:#fff;color:#17140F;border:3px solid #17140F;padding:8px 14px;border-radius:3px;">Lunch / Dinner</a>
+          <a class="chip" href="#beverages" style="font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.5px;font-size:13px;text-decoration:none;background:#fff;color:#17140F;border:3px solid #17140F;padding:8px 14px;border-radius:3px;">Beverages</a>
+          <a class="chip" href="/menu/Newport-Cafe-Menu-2024.pdf" target="_blank" rel="noopener" style="font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.5px;font-size:13px;text-decoration:none;background:#E23A2E;color:#fff;border:3px solid #17140F;padding:8px 14px;border-radius:3px;">⬇ Full PDF</a>
+        </div>
+      </div>
+      <div style="flex:0 0 auto;align-self:flex-end;position:relative;height:210px;width:150px;">
+        <img class="bob" src="/img/limelight.png" alt="Limelight, the Newport Cafe burger slicer" style="position:absolute;bottom:-30px;right:0;height:200px;width:auto;filter:drop-shadow(4px 5px 0 rgba(23,20,15,.25));" />
+      </div>
     </div>
   </section>
 
-  <div class="container">
-    {menu.map((section) => (
-      <section class="menu-section" id={section.id}>
-        <h2>{section.title}</h2>
-        {section.groups.map((group) => (
-          <div class="menu-group">
-            <div class="menu-group__head">
-              <h3>{group.title}</h3>
-              {group.priceAll && <span class="menu-group__all">${group.priceAll}</span>}
-            </div>
-            {group.note && <p class="menu-group__note">{group.note}</p>}
-            <ul class="menu-list">
-              {group.items.map((item) => (
-                <li class="menu-item">
-                  <span class="menu-item__main">
-                    <span class="menu-item__name">{item.name}</span>
-                    {item.desc && <span class="menu-item__desc"> — {item.desc}</span>}
-                  </span>
-                  {item.price && <>
-                    <span class="menu-item__dots" aria-hidden="true"></span>
-                    <span class="menu-item__price">{item.price}</span>
-                  </>}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
-    ))}
+  <!-- BREAKFAST -->
+  <section id="breakfast" class="halftone" style="background:#FBF1DA;padding:46px 20px 20px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+        <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:58px;line-height:.9;margin:0;color:#E23A2E;-webkit-text-stroke:2.5px #17140F;text-shadow:4px 4px 0 #FFCB05;">BREAKFAST</h2>
+        <div style="flex:1;height:6px;background:repeating-linear-gradient(90deg,#17140F 0 16px,transparent 16px 26px);"></div>
+        <span style="font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1px;background:#17140F;color:#FFCB05;padding:6px 12px;border-radius:3px;font-size:13px;">Served all day</span>
+      </div>
+      <div class="menu-cols" style="column-count:2;column-gap:26px;">
 
-    <ul class="menu-notes" aria-label="Menu notes">
-      {standingNotes.map((n) => <li>{n}</li>)}
-    </ul>
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#E23A2E;">Traditional</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Two Eggs, choice of Potatoes &amp; Toast</span><span class="pr">11</span></div>
+          <div class="mi"><span class="nm">…with Corned Beef Hash</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">…with Bacon, Sausage or Ham</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">…with 8 oz. Homemade Burger Patty</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">…with Chicken Fried Steak</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">…with Tender 6 oz. Steak</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">…with Pan Fried Yaquina Bay Oysters</span><span class="pr">20</span></div>
+          <div class="mi"><span class="nm">…with Grilled Calamari Steak</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">…with Grilled Razor Clams</span><span class="pr">22</span></div>
+          <div class="mi"><span class="nm">…with 12 oz. NY / Rib Eye / Prime Rib</span><span class="pr">23</span></div>
+          <div class="mi"><span class="nm">…with Grilled Pork Chops</span><span class="pr">17</span></div>
+          <div class="mi"><span class="nm">…with Homemade Crab Cakes</span><span class="pr">23</span></div>
+          <div class="mi"><span class="nm">…with Kielbasa</span><span class="pr">15</span></div>
+        </div>
 
-    <p style="text-align:center;margin:30px 0 50px">
-      <a href={site.phoneHref} class="btn btn--call btn--lg">Call to order: {site.phoneDisplay}</a>
-    </p>
-  </div>
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#2747A8;">Biscuit &amp; Country Sausage Gravy</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">One Biscuit &amp; Gravy</span><span class="pr">5</span></div>
+          <div class="mi"><span class="nm">Two Biscuits &amp; Gravy</span><span class="pr">8</span></div>
+          <div class="mi"><span class="nm">Biscuit &amp; Gravy, 2 Eggs, 2 Bacon, 2 Links</span><span class="pr">14</span></div>
+          <div class="mi"><span class="nm">Hash Browns &amp; Country Gravy</span><span class="pr">6</span></div>
+          <div class="mi"><span class="nm">Red Potatoes &amp; Country Gravy</span><span class="pr">6</span></div>
+          <div class="mi"><span class="nm">The Stroke — 2 Biscuits &amp; Gravy, Hash Browns &amp; Gravy, 2 Eggs, 2 Bacon, 2 Links</span><span class="pr">19</span></div>
+          <div class="mi"><span class="nm">Old Fashion Oats Bowl</span><span class="pr">7</span></div>
+          <div class="mi"><span class="nm">Add fruit, walnuts or raisins</span><span class="pr">2</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title">Pancakes, Waffles &amp; French Toast</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">One Waffle</span><span class="pr">7</span></div>
+          <div class="mi"><span class="nm">One / Two / Three Cakes</span><span class="pr">4·6·9</span></div>
+          <div class="mi"><span class="nm">1×2 Combo — Cake or French Toast, 2 Eggs, 2 Bacon, 2 Links</span><span class="pr">14</span></div>
+          <div class="mi"><span class="nm">1×2 Combo with Waffle</span><span class="pr">14</span></div>
+          <div class="mi"><span class="nm">Two / Three Slices French Toast</span><span class="pr">5·7</span></div>
+          <div class="mi"><span class="nm">2×2 Combo — 2 Cakes or 2 French Toast, 2 Eggs, 2 Bacon, 2 Links</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">Stuffed French Toast (fruit &amp; cream)</span><span class="pr">14</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#E23A2E;">Eggs Benedict</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Ham, Bacon or Sausage</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">with Pink Shrimp</span><span class="pr">17</span></div>
+          <div class="mi"><span class="nm">with Crab</span><span class="pr">22</span></div>
+          <div class="mi"><span class="nm">with Spinach, Tomato, Avocado</span><span class="pr">15</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#2747A8;">Cafe Omelets <span style="font-family:'Archivo';font-size:12px;font-weight:600;color:#777;">· 4 eggs, potatoes &amp; toast</span></div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Cheese</span><span class="pr">12</span></div>
+          <div class="mi"><span class="nm">Ham, Bacon or Sausage &amp; Cheese</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">Denver</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Spinach / Vegetarian / Spanish</span><span class="pr">13–15</span></div>
+          <div class="mi"><span class="nm">Oregon Pink Shrimp</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">Scallops</span><span class="pr">21</span></div>
+          <div class="mi"><span class="nm">Crab</span><span class="pr">22</span></div>
+          <div class="mi"><span class="nm">Combo Crab &amp; Shrimp</span><span class="pr">23</span></div>
+          <div class="mi"><span class="nm">Philly Cheese Steak / Garbage / Taco</span><span class="pr">16–18</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#E23A2E;">Breakfast Burritos</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Land Lovers — Ham, Sausage, Bacon</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">Sea Lovers — Crab, Shrimp, Scallops</span><span class="pr">22</span></div>
+          <div class="mi"><span class="nm">Garden Lovers</span><span class="pr">13</span></div>
+          <div class="mi"><span class="nm">Chicken Lovers / Taco Lovers</span><span class="pr">16</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#2747A8;">Cafe Favorites</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Newport Scramble</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">Chicken Scramble</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Pacific Seafood Scramble</span><span class="pr">23</span></div>
+          <div class="mi"><span class="nm">Minced Ham &amp; Eggs</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">Newport Favorite — biscuit, sausage, egg, gravy</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Hang Town Fry — oysters, spinach, onions, eggs, Swiss</span><span class="pr">21</span></div>
+          <div class="mi"><span class="nm">Cafe Potatoes</span><span class="pr">11</span></div>
+        </div>
+
+        <div class="panel" style={panelS + 'background:#fff5d6;'}>
+          <div class="cat-title">Children's &amp; Seniors' Breakfast <span style="font-family:'Anton';color:#E23A2E;">$9</span></div>
+          <div style="height:3px;background:#17140F;margin:8px 0 8px;"></div>
+          <p style="font-weight:600;font-size:14px;margin:0 0 6px;color:#444;">Under 10 &amp; over 55. Choose one — egg &amp; toast plates, French toast or pancake combos, small scrambles, waffle &amp; egg, breakfast burrito or cafe potatoes. <em>(+$4 for Sea Scramble / Sea Lover's Burrito.)</em></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MONSTER BURGER FEATURE -->
+  <section class="halftone-red" style="position:relative;background:#17140F;color:#fff;padding:42px 20px;border-top:5px solid #17140F;border-bottom:5px solid #17140F;overflow:hidden;">
+    <div style="max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+      <div style="flex:1 1 380px;">
+        <div style="display:inline-block;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1.5px;font-size:13px;background:#FFCB05;color:#17140F;padding:5px 12px;border:2px solid #000;transform:rotate(-2deg);">The challenge</div>
+        <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:46px;line-height:.9;margin:12px 0 8px;color:#FFCB05;-webkit-text-stroke:2px #000;text-shadow:4px 4px 0 #E23A2E;">THE MONSTER BURGERS</h2>
+        <p style="font-size:16px;line-height:1.5;color:#f1e7d4;max-width:440px;margin:0 0 16px;">All homemade, hand-pressed. The Super Ultimate is 8 lb of burger, grilled onions, ham &amp; eight fried eggs on a 10-inch house-made bun.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <div style="background:#fff;color:#17140F;border:3px solid #000;border-radius:4px;padding:7px 13px;box-shadow:3px 4px 0 rgba(0,0,0,.6);"><div style="font-family:'Anton';text-transform:uppercase;font-size:11px;">The Monster · 3 lb</div><div style="font-family:'Bangers';font-size:26px;color:#E23A2E;line-height:1;">$18</div></div>
+          <div style="background:#fff;color:#17140F;border:3px solid #000;border-radius:4px;padding:7px 13px;box-shadow:3px 4px 0 rgba(0,0,0,.6);"><div style="font-family:'Anton';text-transform:uppercase;font-size:11px;">Ultimate · 4 lb</div><div style="font-family:'Bangers';font-size:26px;color:#E23A2E;line-height:1;">$25</div></div>
+          <div style="background:#FFCB05;color:#17140F;border:3px solid #000;border-radius:4px;padding:7px 13px;box-shadow:3px 4px 0 rgba(0,0,0,.6);transform:rotate(-2deg);"><div style="font-family:'Anton';text-transform:uppercase;font-size:11px;">Super Ultimate · 8 lb</div><div style="font-family:'Bangers';font-size:28px;color:#E23A2E;line-height:1;">$60</div></div>
+        </div>
+      </div>
+      <div style="flex:0 0 auto;position:relative;width:330px;max-width:100%;display:grid;place-items:center;min-height:240px;margin:0 auto;">
+        <img src="/img/monster-burger.png" alt="The 8 lb Super Ultimate Monster Burger" style="position:relative;z-index:2;width:100%;max-width:300px;height:auto;object-fit:contain;filter:drop-shadow(4px 6px 0 rgba(0,0,0,.45));" />
+        <img class="bob" src="/img/babyface.png" alt="Babyface taking on the Monster Burger challenge" style="position:absolute;right:-6px;bottom:-20px;height:172px;width:auto;z-index:3;filter:drop-shadow(4px 5px 0 rgba(0,0,0,.5));" />
+        <div style="position:absolute;top:-8px;left:-8px;transform:rotate(-9deg);filter:drop-shadow(2px 2px 0 #000);z-index:4;"><div class="cp-boom" style="width:88px;height:88px;background:#E23A2E;display:grid;place-items:center;text-align:center;"><span style="font-family:'Bangers';color:#fff;font-size:13px;line-height:.85;text-shadow:1px 1px 0 #000;">CAN YOU<br>FINISH<br>IT?</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LUNCH / DINNER -->
+  <section id="lunch" class="halftone" style="background:#FBF1DA;padding:46px 20px 20px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+        <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:56px;line-height:.9;margin:0;color:#2747A8;-webkit-text-stroke:2.5px #17140F;text-shadow:4px 4px 0 #FFCB05;">LUNCH / DINNER</h2>
+        <div style="flex:1;height:6px;background:repeating-linear-gradient(90deg,#17140F 0 16px,transparent 16px 26px);"></div>
+      </div>
+      <div class="menu-cols" style="column-count:2;column-gap:26px;">
+
+        <div class="panel" style={panelS + 'border-color:#E23A2E;'}>
+          <div class="cat-title" style="color:#E23A2E;">Burgers <span style="font-family:'Archivo';font-size:12px;font-weight:600;color:#777;">· all 1 lb, hand-pressed, pub bun</span></div>
+          <div style="height:3px;background:#E23A2E;margin:8px 0 6px;"></div>
+          <div class="mi"><span class="nm">Classic</span><span class="pr">9</span></div>
+          <div class="mi"><span class="nm">Classic with Cheese</span><span class="pr">10</span></div>
+          <div class="mi"><span class="nm">Mushroom / Southwestern / Jalapeño / Avocado</span><span class="pr">11</span></div>
+          <div class="mi"><span class="nm">Chili Cheese</span><span class="pr">13</span></div>
+          <div class="mi"><span class="nm">Fish (fried Cod) / Salmon</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">Heart Attack — two grilled cheese as buns</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Teriyaki / Chicken / Chipotle / Black &amp; Blue / Veg</span><span class="pr">11</span></div>
+          <div class="mi"><span class="nm">Hawaiian</span><span class="pr">12</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#2747A8;">Cafe Sandwiches <span style="font-family:'Archivo';font-size:12px;font-weight:600;color:#777;">· choice of side</span></div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">French Dip</span><span class="pr">12</span></div>
+          <div class="mi"><span class="nm">Grilled Ham &amp; Cheese / Chili Cheese Dog</span><span class="pr">13</span></div>
+          <div class="mi"><span class="nm">Reuben / Grilled Chicken Club</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Philly / Patty Melt / Tuna Melt / Cuban / Kielbasa</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">Monte Cristo</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Shrimp Melt</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">Fresh Prime Rib on a hoagie</span><span class="pr">19</span></div>
+          <div class="mi"><span class="nm">Yaquina Bay Oyster Sandwich</span><span class="pr">20</span></div>
+          <div class="mi"><span class="nm">Crab Melt</span><span class="pr">21</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title">Deep Fried <span style="font-family:'Archivo';font-size:12px;font-weight:600;color:#777;">· with fries or potatoes</span></div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Chicken Strips / Clam Strips / Popcorn Shrimp</span><span class="pr">13–15</span></div>
+          <div class="mi"><span class="nm">Calamari &amp; Fries</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Tuna / Finger Steaks</span><span class="pr">17</span></div>
+          <div class="mi"><span class="nm">Cod &amp; Fries</span><span class="pr">19</span></div>
+          <div class="mi"><span class="nm">Salmon / Pan Fried Oysters</span><span class="pr">20</span></div>
+          <div class="mi"><span class="nm">Scallops</span><span class="pr">21</span></div>
+          <div class="mi"><span class="nm">Prawns</span><span class="pr">22</span></div>
+          <div class="mi"><span class="nm">Halibut / Crab Cakes / Razor Clams / Combo</span><span class="pr">23</span></div>
+          <div class="mi"><span class="nm">Captain's Platter</span><span class="pr">29</span></div>
+          <div class="mi"><span class="nm">Ship, Captain &amp; Crew</span><span class="pr">49</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#E23A2E;">Dinner</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Hot Roast Beef or Turkey</span><span class="pr">14</span></div>
+          <div class="mi"><span class="nm">Liver &amp; Onions</span><span class="pr">15</span></div>
+          <div class="mi"><span class="nm">Hamburger Steak / Pork Chops / Salisbury / Meat Loaf</span><span class="pr">16</span></div>
+          <div class="mi"><span class="nm">Chicken Fried Steak / 6 oz. Steak / BBQ Ribs / Calamari Steak</span><span class="pr">18</span></div>
+          <div class="mi"><span class="nm">Halibut Tacos — rice &amp; beans</span><span class="pr">20</span></div>
+          <div class="mi"><span class="nm">12 oz. NY · Rib-Eye · Prime Rib</span><span class="pr">23</span></div>
+          <div class="mi"><span class="nm">Steamer Clams — 1½ lb, garlic butter</span><span class="pr">20</span></div>
+          <div class="mi"><span class="nm">Whole Crab</span><span class="pr">MKT</span></div>
+        </div>
+
+        <div class="panel" style={panelS}>
+          <div class="cat-title" style="color:#2747A8;">Soups, Salads &amp; Cocktails</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Homemade Clam Chowder / Chili — cup</span><span class="pr">5</span></div>
+          <div class="mi"><span class="nm">Soup &amp; Salad</span><span class="pr">8</span></div>
+          <div class="mi"><span class="nm">Caesar Salad</span><span class="pr">10</span></div>
+          <div class="mi"><span class="nm">Bread Bowl — chowder or chili</span><span class="pr">14</span></div>
+          <div class="mi"><span class="nm">Chef's / Taco / Grilled Chicken / Cobb Salad</span><span class="pr">15–16</span></div>
+          <div class="mi"><span class="nm">Shrimp / Crab &amp; Shrimp Louie</span><span class="pr">16–20</span></div>
+          <div class="mi"><span class="nm">Crab Louie</span><span class="pr">20</span></div>
+          <div class="mi"><span class="nm">Shrimp / Oyster / Mexican Shrimp Cocktail</span><span class="pr">13–16</span></div>
+          <div class="mi"><span class="nm">Crab / Prawn Cocktail</span><span class="pr">18</span></div>
+        </div>
+
+        <div class="panel" style={panelS + 'background:#fff5d6;'}>
+          <div class="cat-title">Appetizers <span style="font-family:'Anton';color:#E23A2E;">$8</span> &amp; Sides</div>
+          <div style="height:3px;background:#17140F;margin:8px 0 8px;"></div>
+          <p style="font-weight:600;font-size:14px;margin:0 0 8px;color:#444;">Jalapeño Poppers · Chicken Gizzards · Artichoke Hearts · Zucchini Sticks · Pickle Chips · Fried Mushrooms · Popcorn Shrimp · Mozzarella Sticks · Calamari Rings · Hot Wings</p>
+          <div class="mi"><span class="nm">Side of Fries</span><span class="pr">4</span></div>
+          <div class="mi"><span class="nm">Chili Cheese Fries</span><span class="pr">9</span></div>
+          <div class="mi"><span class="nm">Onion Rings / Sweet Potato Fries</span><span class="pr">7</span></div>
+          <div class="mi"><span class="nm">Homemade Cheesecake / Ice Cream</span><span class="pr">5·4</span></div>
+        </div>
+
+        <div class="panel" style={panelS + 'background:#fff5d6;'}>
+          <div class="cat-title">Children's &amp; Seniors' Lunch / Dinner</div>
+          <div style={ruleS}></div>
+          <div class="mi"><span class="nm">Hot Dog / Corndog / Grilled Cheese / PB&amp;J &amp; Fries</span><span class="pr">7</span></div>
+          <div class="mi"><span class="nm">¼ lb Cheeseburger / Chicken Strips &amp; Fries</span><span class="pr">8</span></div>
+          <div class="mi"><span class="nm">Cod / Popcorn Shrimp &amp; Fries</span><span class="pr">9</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BEVERAGES -->
+  <section id="beverages" class="halftone" style="background:#FFCB05;padding:40px 20px 44px;border-top:5px solid #17140F;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+        <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:48px;line-height:.9;margin:0;color:#fff;-webkit-text-stroke:2.5px #17140F;text-shadow:4px 4px 0 #E23A2E;">BEVERAGES</h2>
+        <div style="flex:1;height:6px;background:repeating-linear-gradient(90deg,#17140F 0 16px,transparent 16px 26px);"></div>
+      </div>
+      <div class="panel" style="padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 26px;">
+        <div class="mi"><span class="nm">Coffee / Hot Tea / Ice Tea / Milk</span><span class="pr">3</span></div>
+        <div class="mi"><span class="nm">Hot Chocolate / Chocolate Milk</span><span class="pr">4</span></div>
+        <div class="mi"><span class="nm">Pepsi Products</span><span class="pr">3</span></div>
+        <div class="mi"><span class="nm">Juices &amp; Lemonade</span><span class="pr">3</span></div>
+        <div class="mi"><span class="nm">Raspberry / Strawberry Lemonade</span><span class="pr">4</span></div>
+        <div class="mi"><span class="nm">Bud / Coors / Wine</span><span class="pr">4</span></div>
+        <div class="mi"><span class="nm">Microbrews &amp; Imports</span><span class="pr">5</span></div>
+      </div>
+      <p style="font-size:12.5px;color:#5a4f33;font-weight:600;margin:16px 0 0;max-width:760px;">* Consuming raw or undercooked meats, poultry, eggs, seafood or shellfish may increase your risk of foodborne illness. Prices subject to change without notice. A price adjustment applies on non-cash transactions, not greater than our cost of acceptance.</p>
+    </div>
+  </section>
+
+  <!-- CTA + FOOTER -->
+  <section class="halftone-red" style="background:#17140F;color:#f1e7d4;padding:40px 20px 26px;border-top:5px solid #17140F;text-align:center;">
+    <div style="max-width:900px;margin:0 auto;">
+      <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:40px;margin:0 0 8px;color:#FFCB05;-webkit-text-stroke:1px #000;">CALL TO ORDER · (541) 574-6847</h2>
+      <p style="font-weight:600;margin:0 0 20px;color:#d8cbb4;">7AM – 10PM, every day · 534 N Coast Hwy, Newport, OR · Open 365 days a year.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+        <a class="btn-pop" href={site.phoneHref} style="font-family:'Anton',sans-serif;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;font-size:17px;padding:13px 20px;background:#E23A2E;color:#fff;border:4px solid #000;box-shadow:5px 6px 0 rgba(0,0,0,.7);border-radius:3px;">Call (541) 574-6847</a>
+        <a class="btn-pop" href="/" style="font-family:'Anton',sans-serif;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;font-size:17px;padding:13px 20px;background:#fff;color:#17140F;border:4px solid #000;box-shadow:5px 6px 0 rgba(0,0,0,.7);border-radius:3px;">← Back home</a>
+      </div>
+      <div style="margin-top:24px;font-size:13px;color:#988e78;">© {new Date().getFullYear()} The Newport Cafe. Established 2008 · Newport, Oregon.</div>
+    </div>
+  </section>
 </Base>

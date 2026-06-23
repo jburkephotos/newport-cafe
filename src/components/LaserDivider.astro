@@ -1,0 +1,28 @@
+---
+// Dark section-break strip: the Founder fires twin eye-beams across on scroll.
+---
+<div class="laser-divider" style="position:relative;height:104px;display:flex;align-items:center;justify-content:center;background:#17140F;overflow:hidden;">
+  <div class="rays-soft" style="position:absolute;inset:0;"></div>
+  <div class="beam beam-left" style="position:absolute;right:50%;height:9px;width:46vw;margin-right:34px;"><div class="beam-core" style="height:100%;width:100%;background:linear-gradient(90deg,#FFF7C2,#FFCB05 30%,#E23A2E);background-size:34px 100%;border-radius:6px;box-shadow:0 0 14px 3px rgba(226,58,46,.8),0 0 4px 1px #FFCB05;"></div></div>
+  <div class="beam beam-right" style="position:absolute;left:50%;height:9px;width:46vw;margin-left:34px;"><div class="beam-core" style="height:100%;width:100%;background:linear-gradient(90deg,#E23A2E,#FFCB05 70%,#FFF7C2);background-size:34px 100%;border-radius:6px;box-shadow:0 0 14px 3px rgba(226,58,46,.8),0 0 4px 1px #FFCB05;"></div></div>
+  <div class="muzzle" style="position:absolute;left:50%;top:36px;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:radial-gradient(circle,#fff,#FFCB05 50%,rgba(226,58,46,0) 72%);z-index:3;opacity:0;"></div>
+  <div style="position:relative;z-index:2;height:104px;width:120px;overflow:hidden;display:flex;justify-content:center;">
+    <img class="emitter-img" src="/img/founder.png" alt="" style="height:300px;width:auto;margin-top:-4px;filter:drop-shadow(3px 4px 0 rgba(0,0,0,.4));" />
+  </div>
+</div>
+
+<script>
+  if (!window.__ncLaserBound) {
+    window.__ncLaserBound = true;
+    const fire = (el) => el.classList.add('fired');
+    const dividers = document.querySelectorAll('.laser-divider');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { fire(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.4 });
+      dividers.forEach((d) => io.observe(d));
+    } else {
+      dividers.forEach(fire);
+    }
+  }
+</script>

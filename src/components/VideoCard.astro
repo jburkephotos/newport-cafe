@@ -1,72 +1,74 @@
 ---
-// Load-on-click video card. Handles YouTube (facade → nocookie iframe) and
-// self-hosted mp4 (poster → native <video>). Nothing loads until clicked, so
-// the page stays fast. Portrait clips pillarbox inside the 16:9 card.
+// Comic "See it in action" panel. Loads nothing until clicked.
 const { video } = Astro.props;
-
-if (video.type === 'youtube' && !video.id) {
-  // Empty placeholder slot (kept for parity with old behavior).
-}
-const ytThumb = video.type === 'youtube' && video.id ? `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg` : '';
-const ytPoster = video.poster || ytThumb;
+const isFile = video.type === 'file';
+const thumb = !isFile ? `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg` : '';
+const cardS = 'position:relative;background:#0e0c09;border:5px solid #000;border-radius:5px;box-shadow:6px 7px 0 rgba(0,0,0,.7);overflow:hidden;cursor:pointer;';
+const labelS = "padding:12px 14px;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.4px;font-size:14px;color:#fff;";
 ---
-
-{video.type === 'youtube' && video.id && (
-  <button
-    class:list={['video-facade', { 'is-portrait': video.orientation === 'portrait' }]}
-    style={`background-image:url('${ytPoster}')`}
-    data-yt={video.id}
-    aria-label={`Play video: ${video.label}`}
-  >
-    <span class="video-facade__play" aria-hidden="true"><span></span></span>
-    <span class="video-facade__label">{video.label}</span>
-  </button>
-)}
-
-{video.type === 'file' && (
-  <button
-    class:list={['video-facade', { 'is-portrait': video.orientation === 'portrait' }]}
-    style={`background-image:url('${video.poster}')`}
-    data-video={video.src}
-    aria-label={`Play video: ${video.label}`}
-  >
-    <span class="video-facade__play" aria-hidden="true"><span></span></span>
-    <span class="video-facade__label">{video.label}</span>
-  </button>
-)}
-
-{video.type === 'youtube' && !video.id && (
-  <div class="video-placeholder" role="note">
-    <div><strong>▶ Video slot: {video.label}</strong><br /><small>Add a YouTube ID in <code>src/data/videos.js</code>.</small></div>
-  </div>
-)}
+<div
+  class="vid-card"
+  tabindex="0"
+  role="button"
+  aria-label={`Play video: ${video.label}`}
+  data-video={isFile ? video.src : undefined}
+  data-yt={!isFile ? video.id : undefined}
+  style={cardS}
+>
+  {isFile ? (
+    <div class="vid-media" style="position:relative;height:158px;background:linear-gradient(135deg,#7a1c14,#E23A2E);display:grid;place-items:center;">
+      <div class="halftone-light" style="position:absolute;inset:0;"></div>
+      <div class="play" style="position:relative;width:58px;height:58px;border-radius:50%;background:#FFCB05;border:4px solid #fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.5);">
+        <div style="width:0;height:0;border-left:18px solid #17140F;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px;"></div>
+      </div>
+    </div>
+  ) : (
+    <div class="vid-media" style={`position:relative;height:158px;background:#000 center/cover no-repeat;background-image:url('${thumb}');display:grid;place-items:center;`}>
+      <div style="position:absolute;inset:0;background:rgba(10,8,5,.28);"></div>
+      <div class="play" style="position:relative;width:58px;height:58px;border-radius:50%;background:#E23A2E;border:4px solid #fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.5);">
+        <div style="width:0;height:0;border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px;"></div>
+      </div>
+    </div>
+  )}
+  <div style={labelS}>{video.label}</div>
+</div>
 
 <script>
-  // Bound once; attaches to every facade on the page (Astro dedupes this script).
-  document.querySelectorAll('.video-facade').forEach((el) => {
-    if (el.dataset.bound) return;
-    el.dataset.bound = '1';
-    el.addEventListener('click', () => {
-      const yt = el.getAttribute('data-yt');
-      const file = el.getAttribute('data-video');
-      const label = el.getAttribute('aria-label') || 'Video';
-      if (yt) {
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`;
-        iframe.title = label;
-        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        iframe.allowFullscreen = true;
-        el.replaceChildren(iframe);
-      } else if (file) {
+  // One delegated handler for every comic video card on the page.
+  if (!window.__ncVideoBound) {
+    window.__ncVideoBound = true;
+    const play = (card) => {
+      const media = card.querySelector('.vid-media');
+      if (!media || media.dataset.playing === '1') return;
+      const file = card.getAttribute('data-video');
+      const id = card.getAttribute('data-yt');
+      if (!file && !id) return;
+      media.dataset.playing = '1';
+      if (file) {
         const v = document.createElement('video');
-        v.src = file;
-        v.controls = true;
-        v.autoplay = true;
-        v.playsInline = true;
+        v.src = file; v.controls = true; v.autoplay = true;
         v.setAttribute('playsinline', '');
-        v.preload = 'metadata';
-        el.replaceChildren(v);
+        v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;object-fit:contain;';
+        media.appendChild(v); v.play && v.play().catch(() => {});
+        return;
+      }
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+      iframe.title = card.getAttribute('aria-label') || 'Newport Cafe video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;';
+      media.appendChild(iframe);
+    };
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.vid-card');
+      if (card) { e.preventDefault(); play(card); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const card = e.target.closest('.vid-card');
+        if (card) { e.preventDefault(); play(card); }
       }
     });
-  });
+  }
 </script>

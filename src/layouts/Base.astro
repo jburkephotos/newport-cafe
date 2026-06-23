@@ -1,20 +1,18 @@
 ---
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
 import SchemaOrg from '../components/SchemaOrg.astro';
 import SoundToggle from '../components/SoundToggle.astro';
 import { site } from '../data/site.js';
 
 const {
   title = `${site.legalName} — Family Diner in Newport, Oregon`,
-  description = `${site.legalName}: family-style coastal diner in Newport, OR since ${site.established}. Breakfast, seafood, burgers and huge portions, open 7AM–10PM every day. ${site.phoneDisplay}.`,
+  description = `${site.legalName}: family-style coastal diner in Newport, OR since ${site.established}. Breakfast, seafood, burgers and famously huge portions, open 7AM–10PM every day. ${site.phoneDisplay}.`,
+  page = 'home',
   schema = true,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-// Live on thenewportcafe.com — indexable by default. To temporarily hide a
-// build from search (e.g. a staging deploy), set PUBLIC_NOINDEX=1 at build time.
 const noindex = import.meta.env.PUBLIC_NOINDEX === '1' || import.meta.env.PUBLIC_NOINDEX === 'true';
 ---
 
@@ -33,20 +31,26 @@ const noindex = import.meta.env.PUBLIC_NOINDEX === '1' || import.meta.env.PUBLIC
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="theme-color" content="#c1272d" />
+    <meta name="theme-color" content="#E23A2E" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Bangers&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
 
     {schema && <SchemaOrg canonical={canonical} />}
   </head>
-  <body>
+  <body class="np">
     <a href="#main" class="sr-only">Skip to content</a>
-    <SiteHeader />
+    <SiteHeader page={page} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter />
     <SoundToggle />
   </body>
 </html>
