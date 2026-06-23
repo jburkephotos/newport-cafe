@@ -1,0 +1,47 @@
+---
+// Comic FAQ accordions + FAQPage JSON-LD. Answers live in the DOM (inside
+// <details>) so they're crawlable for answer-boxes / AI even when collapsed.
+const { faqs, heading = 'THE BIG QUESTIONS', kicker = 'Monster Burger FAQ' } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section class="halftone" style="background:#FBF1DA;padding:54px 20px 60px;border-top:5px solid #17140F;">
+  <div style="max-width:840px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:8px;">
+      <span style="display:inline-block;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1.5px;background:#2747A8;color:#fff;border:3px solid #17140F;padding:6px 14px;transform:rotate(-1.5deg);">{kicker}</span>
+    </div>
+    <h2 style="font-family:'Bangers',cursive;font-weight:400;text-align:center;font-size:56px;line-height:.9;margin:6px 0 34px;color:#E23A2E;-webkit-text-stroke:2.5px #17140F;text-shadow:4px 4px 0 #FFCB05;">{heading}</h2>
+
+    <div style="display:grid;gap:16px;">
+      {faqs.map((f) => (
+        <details class="faq-item panel" style="padding:0;overflow:hidden;">
+          <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:16px 18px;font-family:'Archivo',sans-serif;font-weight:800;font-size:17px;color:#17140F;">
+            <span class="faq-mark" aria-hidden="true" style="flex:0 0 auto;width:30px;height:30px;display:grid;place-items:center;background:#FFCB05;border:3px solid #17140F;border-radius:4px;font-family:'Bangers',cursive;line-height:1;color:#17140F;"></span>
+            <span>{f.q}</span>
+          </summary>
+          <div style="padding:0 18px 18px 62px;font-size:16px;line-height:1.55;font-weight:500;color:#2a2620;border-top:2px dashed #e3d6b4;margin-top:-2px;padding-top:14px;">{f.a}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-mark::after { content: '+'; font-size: 22px; }
+  .faq-item[open] .faq-mark { background: #E23A2E; color: #fff; }
+  .faq-item[open] .faq-mark::after { content: '–'; }
+  .faq-item summary { transition: background .12s ease; }
+  .faq-item summary:hover { background: #fff7da; }
+</style>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
