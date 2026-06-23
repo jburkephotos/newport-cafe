@@ -1,13 +1,42 @@
 ---
-// LocalBusiness / Restaurant JSON-LD. This is the AEO win — how the café shows
-// up correctly in Google local results and AI answers.
+// Brand + place structured data as a linked @graph:
+//   Organization (#organization) — brand entity, carries the logo + sameAs
+//   Restaurant   (#restaurant)   — the physical diner (LocalBusiness)
+// This is the AEO win — how the café shows up in Google local results,
+// the brand/logo knowledge panel, and AI answers.
 import { site, openingHours } from '../data/site.js';
-const { canonical } = Astro.props;
 
-const schema = {
-  '@context': 'https://schema.org',
+const ORG_ID = 'https://thenewportcafe.com/#organization';
+const RESTAURANT_ID = 'https://thenewportcafe.com/#restaurant';
+const address = {
+  '@type': 'PostalAddress',
+  streetAddress: site.address.street,
+  addressLocality: site.address.city,
+  addressRegion: site.address.region,
+  postalCode: site.address.postalCode,
+  addressCountry: site.address.country,
+};
+
+const organization = {
+  '@type': 'Organization',
+  '@id': ORG_ID,
+  name: site.legalName,
+  alternateName: site.name,
+  url: 'https://thenewportcafe.com/',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://thenewportcafe.com/img/logo.png',
+  },
+  image: 'https://thenewportcafe.com/og-image.jpg',
+  telephone: site.phoneDisplay,
+  foundingDate: site.established,
+  address,
+  ...(site.socials && site.socials.length ? { sameAs: site.socials } : {}),
+};
+
+const restaurant = {
   '@type': 'Restaurant',
-  '@id': 'https://thenewportcafe.com/#restaurant',
+  '@id': RESTAURANT_ID,
   name: site.legalName,
   alternateName: site.name,
   description: site.blurb,
@@ -18,14 +47,8 @@ const schema = {
   foundingDate: site.established,
   image: 'https://thenewportcafe.com/og-image.jpg',
   hasMenu: 'https://thenewportcafe.com/menu',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: site.address.street,
-    addressLocality: site.address.city,
-    addressRegion: site.address.region,
-    postalCode: site.address.postalCode,
-    addressCountry: site.address.country,
-  },
+  parentOrganization: { '@id': ORG_ID },
+  address,
   geo: {
     '@type': 'GeoCoordinates',
     latitude: site.geo.lat,
@@ -37,6 +60,12 @@ const schema = {
     opens: h.opens,
     closes: h.closes,
   })),
+  ...(site.socials && site.socials.length ? { sameAs: site.socials } : {}),
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [organization, restaurant],
 };
 ---
 

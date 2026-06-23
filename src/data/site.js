@@ -38,6 +38,10 @@ export const site = {
 
   // Pages.dev preview URL — fill in after first deploy (used nowhere critical yet).
   previewUrl: '',
+
+  // Official social/profile URLs → feed Organization "sameAs" (brand entity in
+  // Google). Add the café's real Facebook / Instagram / YouTube / Yelp links.
+  socials: [],
 };
 
 // Used by JSON-LD. Astro builds in local time; these are wall-clock opening hours.
