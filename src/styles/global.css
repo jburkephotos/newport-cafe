@@ -103,6 +103,8 @@ img { display: block; }
 .vid-card:hover { transform: translate(-3px,-3px); box-shadow: 9px 11px 0 rgba(23,20,15,.85); }
 .vid-card:hover .play { transform: scale(1.12); }
 .play { transition: transform .14s ease; }
+.fam-card { transition: transform .14s ease, box-shadow .14s ease; }
+.fam-card:hover { transform: translate(-3px, -3px); box-shadow: 12px 13px 0 rgba(23,20,15,.85); }
 .chip { transition: transform .12s ease, background .12s ease, color .12s ease; }
 .chip:hover { transform: translateY(-2px); background: var(--ink); color: var(--yellow); }
 .mi { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; border-bottom: 1.5px dotted #cdbf9c; }
