@@ -44,7 +44,10 @@ export const site = {
   // 'youtube' | 'yelp'. Example:
   //   { platform: 'facebook',  url: 'https://www.facebook.com/thenewportcafe' },
   //   { platform: 'instagram', url: 'https://www.instagram.com/thenewportcafe' },
-  socials: [],
+  socials: [
+    { platform: 'facebook', url: 'https://www.facebook.com/p/Newport-Cafe-100063700523582/' },
+    { platform: 'instagram', url: 'https://www.instagram.com/thenewportcafe/' },
+  ],
 };
 
 // Used by JSON-LD. Astro builds in local time; these are wall-clock opening hours.
