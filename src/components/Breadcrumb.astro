@@ -1,0 +1,35 @@
+---
+// Visible breadcrumb trail + BreadcrumbList JSON-LD so Google/AI understand
+// how pages relate. Pass items as [{ name, url }] (url = path like '/menu').
+const { items } = Astro.props;
+const ORIGIN = 'https://thenewportcafe.com';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.name,
+    item: ORIGIN + (it.url === '/' ? '/' : it.url),
+  })),
+};
+const linkS = "font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.6px;font-size:12px;text-decoration:none;color:#7a6f57;";
+---
+
+<nav aria-label="Breadcrumb" style="background:#fff;border-bottom:2px solid #efe2c6;">
+  <ol style="max-width:1200px;margin:0 auto;list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 20px;">
+    {items.map((it, i) => (
+      <li style="display:flex;align-items:center;gap:8px;">
+        {i > 0 && <span aria-hidden="true" style="color:#cbb98e;font-weight:700;">›</span>}
+        {i < items.length - 1 ? (
+          <a class="nav-link" href={it.url} style={linkS}>{it.name}</a>
+        ) : (
+          <span style={linkS + 'color:#17140F;'} aria-current="page">{it.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

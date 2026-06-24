@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import FaqSection from '../components/FaqSection.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { site } from '../data/site.js';
 import { monsterFaqs } from '../data/faqs.js';
 
@@ -22,6 +23,7 @@ const productSchema = {
 ---
 <Base title={title} description={description} page="home">
   <script type="application/ld+json" set:html={JSON.stringify(productSchema)} is:inline />
+  <Breadcrumb items={[{ name: 'Home', url: '/' }, { name: 'Monster Burger', url: '/monster-burger' }]} />
 
   <!-- HERO / THE CHALLENGE -->
   <section class="halftone-red" style="position:relative;background:#17140F;color:#fff;padding:48px 20px 60px;overflow:hidden;">

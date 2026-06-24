@@ -42,3 +42,64 @@ export const monsterFaqs = [
     a: "Then you've earned a story you'll tell forever — and a nap. Snap a photo; the Newport Cafe crew loves a champion.",
   },
 ];
+
+// Menu-page FAQs (portions, local seafood, awards, dietary). Visible accordions
+// AND FAQPage JSON-LD are generated from this one array, so they never drift.
+export const menuFaqs = [
+  {
+    q: 'What does "Voted #1" mean?',
+    a: `We earned #1 in the Best of Lincoln County readers' poll year after year, from 2014 through 2024 — voted by the locals, not by us. The poll's been on hiatus since the Newport News-Times closed in 2024 (now the Lincoln Leader), so we're proudly defending a decade of titles until it comes back.`,
+  },
+  {
+    q: 'Is breakfast served all day?',
+    a: `Yes — every breakfast item is available from open to close, 7 AM to 10 PM. Eggs Benedict at 8 PM? We won't judge. We'll just cook.`,
+  },
+  {
+    q: 'Is the seafood actually local?',
+    a: `Yes. Our oysters are pan-fried Yaquina Bay oysters, pulled from the bay right here in Newport. We also serve fresh razor clams, Oregon pink shrimp, halibut, salmon, cod, and whole crab at market price. This is the Oregon Coast; the seafood comes with the zip code.`,
+  },
+  {
+    q: 'Do you have whole Dungeness crab?',
+    a: `We do — whole crab, fresh and at market price. Newport doesn't call itself the Dungeness Crab Capital of the World for nothing, and we're right on Highway 101 to prove it. Want crab without the work? We've also got crab cakes, a Crab Louie, crab melts, crab cocktail, and crab Benedict.`,
+  },
+  {
+    q: 'Where can I get razor clams on the Oregon Coast?',
+    a: `Right here. We serve grilled razor clams, a true coastal delicacy that's hard to find on a menu, as a dinner plate or alongside breakfast. If you've been digging your own out on the beach, we get it. If you'd rather we do the work, we're at 534 N Coast Hwy in Newport.`,
+  },
+  {
+    q: "Where's the best fish and chips in Newport?",
+    a: `We'll let the locals fight over "best," but we'll put our fryer up against anyone. Choose cod, halibut, salmon, or tuna and fries, or go big with the Captain's Platter or Ship, Captain & Crew if one fish isn't enough. Beer-battered, homemade, and a few blocks from the bay it came from.`,
+  },
+  {
+    q: 'What seafood is Newport known for, and do you serve it?',
+    a: `Newport is a working fishing port, and we cook what comes off the docks: Dungeness crab, Yaquina Bay oysters, razor clams, halibut, salmon, cod, and Oregon pink shrimp. If it's the Oregon Coast on a plate, it's probably on our menu.`,
+  },
+  {
+    q: 'Do you have gluten-free or vegetarian options?',
+    a: `We've got vegetarian covered — the Vegetarian Burger, Garden Lovers Burrito, Vegetarian Omelet, garden salads, and more. For gluten-free or other dietary needs, tell your server and we'll point you to what works. With one of the most diverse menus in Newport, there's usually a way.`,
+  },
+  {
+    q: 'Are the portions really that big?',
+    a: `Yes. "Famously huge" isn't marketing, it's a warning. The Stroke breakfast is two biscuits and gravy, hash browns and gravy, two eggs, two bacon, and two links. The Heart Attack burger uses two grilled cheese sandwiches as the buns. Come hungry or come to share.`,
+  },
+  {
+    q: "What's the deal with the Monster Burgers?",
+    a: `Three tiers of ambition. The Monster (3 lb, $18), the Ultimate Monster (4 lb, $25), and the legendary Super Ultimate Monster — 8 lb, eight fried eggs, on a 10-inch homemade bun, for $60. Start where your appetite tells you to.`,
+  },
+  {
+    q: "Do you have a kids' and seniors' menu?",
+    a: `We do, for under 10 and over 55. Breakfast plates are $9, and lunch/dinner runs $7 to $9 with options like a quarter-pound cheeseburger, chicken strips, PB&J, or cod and fries. Same big-portion energy, right-sized.`,
+  },
+  {
+    q: 'Can I order chowder to take home?',
+    a: `Yes. Our homemade clam chowder and chili come by the cup ($5), bowl ($7), or quart ($17). Want it as a meal? Get it in a house-made bread bowl for $14.`,
+  },
+  {
+    q: 'What if I want something not listed on the menu?',
+    a: `Ask. One of the most diverse menus in Newport means "looking for something specific? We probably have it." The printed menu is the starting point, not the limit.`,
+  },
+  {
+    q: 'Do you take reservations or call-ahead orders?',
+    a: `Call us at (541) 574-6847 — we'll get your order going for pickup, or answer whatever the menu didn't.`,
+  },
+];

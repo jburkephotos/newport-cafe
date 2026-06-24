@@ -17,6 +17,11 @@ const address = {
   addressCountry: site.address.country,
 };
 
+// sameAs accepts strings or { platform, url } objects.
+const sameAs = (site.socials || []).map((s) => (typeof s === 'string' ? s : s.url)).filter(Boolean);
+// Citable credential — a decade of reader awards.
+const award = 'Voted #1 — Best of the Best in Lincoln County, Newport News-Times Readers’ Choice (2014–2024)';
+
 const organization = {
   '@type': 'Organization',
   '@id': ORG_ID,
@@ -30,8 +35,9 @@ const organization = {
   image: 'https://thenewportcafe.com/og-image.jpg',
   telephone: site.phoneDisplay,
   foundingDate: site.established,
+  award,
   address,
-  ...(site.socials && site.socials.length ? { sameAs: site.socials } : {}),
+  ...(sameAs.length ? { sameAs } : {}),
 };
 
 const restaurant = {
@@ -48,6 +54,7 @@ const restaurant = {
   image: 'https://thenewportcafe.com/og-image.jpg',
   hasMenu: 'https://thenewportcafe.com/menu',
   parentOrganization: { '@id': ORG_ID },
+  award,
   address,
   geo: {
     '@type': 'GeoCoordinates',
@@ -60,7 +67,7 @@ const restaurant = {
     opens: h.opens,
     closes: h.closes,
   })),
-  ...(site.socials && site.socials.length ? { sameAs: site.socials } : {}),
+  ...(sameAs.length ? { sameAs } : {}),
 };
 
 const schema = {

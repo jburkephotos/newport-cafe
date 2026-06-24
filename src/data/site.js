@@ -39,8 +39,11 @@ export const site = {
   // Pages.dev preview URL — fill in after first deploy (used nowhere critical yet).
   previewUrl: '',
 
-  // Official social/profile URLs → feed Organization "sameAs" (brand entity in
-  // Google). Add the café's real Facebook / Instagram / YouTube / Yelp links.
+  // Official social profiles. Shown as footer icons AND fed into Organization
+  // "sameAs" (brand entity in Google). platform: 'facebook' | 'instagram' |
+  // 'youtube' | 'yelp'. Example:
+  //   { platform: 'facebook',  url: 'https://www.facebook.com/thenewportcafe' },
+  //   { platform: 'instagram', url: 'https://www.instagram.com/thenewportcafe' },
   socials: [],
 };
 

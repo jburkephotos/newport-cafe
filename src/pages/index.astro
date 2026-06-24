@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import CrewSection from '../components/CrewSection.astro';
 import LaserDivider from '../components/LaserDivider.astro';
 import VideoCard from '../components/VideoCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { site } from '../data/site.js';
 import { videos } from '../data/videos.js';
 ---
@@ -169,6 +170,7 @@ import { videos } from '../data/videos.js';
       <div>
         <img src="/img/logo.png" alt="The Newport Cafe" style="height:74px;width:auto;background:#fff;border:3px solid #000;border-radius:6px;padding:6px;" />
         <p style="font-size:14.5px;line-height:1.55;margin:14px 0 0;max-width:320px;color:#d8cbb4;">Family-style coastal diner since 2008. Comfort food, fresh seafood, and famously huge portions — open 365 days a year.</p>
+        <SocialLinks />
       </div>
       <div>
         <div style="font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1px;color:#FFCB05;font-size:16px;margin-bottom:10px;">Visit</div>
