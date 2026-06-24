@@ -4,6 +4,7 @@ import CrewSection from '../components/CrewSection.astro';
 import LaserDivider from '../components/LaserDivider.astro';
 import VideoCard from '../components/VideoCard.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import SiteCredit from '../components/SiteCredit.astro';
 import { site } from '../data/site.js';
 import { videos } from '../data/videos.js';
 ---
@@ -181,6 +182,6 @@ import { videos } from '../data/videos.js';
         <p style="font-size:14.5px;line-height:1.6;margin:0;color:#d8cbb4;">7:00 AM – 10:00 PM, every day<br><em>Open 365 days a year</em><br><a href={site.phoneHref} style="color:#FFCB05;text-decoration:none;font-weight:700;">(541) 574-6847</a></p>
       </div>
     </div>
-    <div style="max-width:1120px;margin:26px auto 0;border-top:1px solid #3a342a;padding-top:16px;font-size:13px;color:#988e78;">© {new Date().getFullYear()} The Newport Cafe. Established 2008 · Newport, Oregon.</div>
+    <div style="max-width:1120px;margin:26px auto 0;border-top:1px solid #3a342a;padding-top:16px;font-size:13px;color:#988e78;"><SiteCredit /></div>
   </footer>
 </Base>

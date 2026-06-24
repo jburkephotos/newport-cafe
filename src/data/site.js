@@ -54,6 +54,10 @@ export const site = {
   // pageviews + 'Call' (tel: clicks) and 'Outbound Link' events.
   // Self-hosting Plausible? Change the script src in src/layouts/Base.astro.
   analytics: { plausibleDomain: 'thenewportcafe.com' },
+
+  // Discreet "Site by" footer credit (your portfolio link / lead-gen). Keep the
+  // label branded, not keyword-stuffed. Set to null to remove it entirely.
+  builtBy: { label: 'jburkephotos.com', url: 'https://jburkephotos.com' },
 };
 
 // Used by JSON-LD. Astro builds in local time; these are wall-clock opening hours.

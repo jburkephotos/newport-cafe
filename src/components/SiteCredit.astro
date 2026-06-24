@@ -1,0 +1,10 @@
+---
+// Footer copyright + optional discreet "Site by" credit (site.builtBy).
+import { site } from '../data/site.js';
+const year = new Date().getFullYear();
+const b = site.builtBy;
+const copyright = `© ${year} ${site.legalName}. Established ${site.established} · Newport, Oregon.`;
+---
+{copyright}{b && (
+  <> · Site by <a href={b.url} target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">{b.label}</a></>
+)}
