@@ -1,0 +1,12 @@
+# Cloudflare response headers.
+# HTML revalidates on every request → deploys are instantly live for visitors
+# AND for crawlers/SEO tools, with no manual cache purge ever again.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Build-hashed assets never change (the filename changes when content does),
+# so cache them hard for speed.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
