@@ -14,6 +14,15 @@ const {
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const noindex = import.meta.env.PUBLIC_NOINDEX === '1' || import.meta.env.PUBLIC_NOINDEX === 'true';
+
+// Plausible analytics (only in builds; the script ignores localhost anyway).
+const plausibleDomain = site.analytics?.plausibleDomain;
+const enableAnalytics = import.meta.env.PROD && Boolean(plausibleDomain);
+const analyticsJs =
+  "window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};" +
+  "document.addEventListener('click',function(e){var a=e.target.closest?e.target.closest('a'):null;if(!a)return;" +
+  "var h=a.getAttribute('href')||'';if(h.indexOf('tel:')===0){window.plausible('Call')}" +
+  "else if((a.protocol==='http:'||a.protocol==='https:')&&a.host&&a.host!==location.host){window.plausible('Outbound Link',{props:{url:a.href}})}});";
 ---
 
 <!doctype html>
@@ -44,6 +53,11 @@ const noindex = import.meta.env.PUBLIC_NOINDEX === '1' || import.meta.env.PUBLIC
     <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
 
     {schema && <SchemaOrg canonical={canonical} />}
+
+    {enableAnalytics && (
+      <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" is:inline></script>
+    )}
+    {enableAnalytics && <script is:inline set:html={analyticsJs} />}
   </head>
   <body class="np">
     <a href="#main" class="sr-only">Skip to content</a>

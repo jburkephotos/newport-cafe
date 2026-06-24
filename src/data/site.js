@@ -48,6 +48,12 @@ export const site = {
     { platform: 'facebook', url: 'https://www.facebook.com/p/Newport-Cafe-100063700523582/' },
     { platform: 'instagram', url: 'https://www.instagram.com/thenewportcafe/' },
   ],
+
+  // Privacy-friendly analytics (Plausible). Set plausibleDomain to your
+  // Plausible site's domain to turn it on; clear it to turn it off. Tracks
+  // pageviews + 'Call' (tel: clicks) and 'Outbound Link' events.
+  // Self-hosting Plausible? Change the script src in src/layouts/Base.astro.
+  analytics: { plausibleDomain: 'thenewportcafe.com' },
 };
 
 // Used by JSON-LD. Astro builds in local time; these are wall-clock opening hours.
