@@ -5,8 +5,10 @@ import LaserDivider from '../components/LaserDivider.astro';
 import VideoCard from '../components/VideoCard.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import SiteCredit from '../components/SiteCredit.astro';
+import FaqSection from '../components/FaqSection.astro';
 import { site } from '../data/site.js';
 import { videos } from '../data/videos.js';
+import { homeFaqs } from '../data/faqs.js';
 ---
 
 <Base page="home">
@@ -164,6 +166,11 @@ import { videos } from '../data/videos.js';
       </div>
     </div>
   </section>
+
+  <!-- HOMEPAGE FAQ — the questions people ask first (hours, location, the Monster,
+       seafood, breakfast). FaqSection also emits FAQPage JSON-LD, so the homepage
+       itself is citable by AI answer engines, not just /menu and /monster-burger. -->
+  <FaqSection faqs={homeFaqs} heading="QUICK ANSWERS" kicker="Newport Cafe FAQ" />
 
   <!-- FOOTER -->
   <footer style="background:#17140F;color:#f1e7d4;padding:40px 20px 26px;border-top:5px solid #17140F;">

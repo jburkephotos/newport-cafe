@@ -103,3 +103,21 @@ export const menuFaqs = [
     a: `Call us at (541) 574-6847 — we'll get your order going for pickup, or answer whatever the menu didn't.`,
   },
 ];
+
+// Homepage quick answers — the questions people actually ask first (hours,
+// location, the Monster, seafood, breakfast). Reuses menu answers verbatim
+// where they exist so the copy stays consistent site-wide.
+const pick = (q) => menuFaqs.find((f) => f.q === q);
+export const homeFaqs = [
+  {
+    q: 'What are your hours?',
+    a: `7:00 AM to 10:00 PM, every single day — 365 days a year. Holidays included. If you're hungry, we're open.`,
+  },
+  {
+    q: 'Where is The Newport Cafe?',
+    a: `534 N Coast Hwy in Newport, Oregon — right on Highway 101 at the corner of NE 6th St, a few blocks from Yaquina Bay. Look for the burger-wrapped car out front; you can't miss it.`,
+  },
+  pick("What's the deal with the Monster Burgers?"),
+  pick('Is the seafood actually local?'),
+  pick('Is breakfast served all day?'),
+].filter(Boolean);
