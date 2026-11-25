@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SiteCredit from '../components/SiteCredit.astro';
+import { site } from '../data/site.js';
+
+const title = 'About The Newport Cafe — Family Diner on Highway 101 Since 2008';
+const description =
+  'David See opened The Newport Cafe on Highway 101 in 2008. A family-run diner with all-day breakfast, local Yaquina Bay seafood and the 8 lb Monster burger, open 7AM–10PM every day of the year.';
+
+// AboutPage points at the business entity defined once in SchemaOrg.astro.
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About The Newport Cafe',
+  url: 'https://thenewportcafe.com/about',
+  description,
+  about: { '@id': 'https://thenewportcafe.com/#organization' },
+  mainEntity: { '@id': 'https://thenewportcafe.com/#restaurant' },
+};
+
+const kicker = "display:inline-block;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1.5px;font-size:14px;background:#2747A8;color:#fff;padding:5px 12px;border:2px solid #17140F;transform:rotate(-2deg);";
+const para = 'font-size:18px;line-height:1.65;font-weight:500;color:#2a2620;margin:0 0 18px;';
+const btn = "font-family:'Anton',sans-serif;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;font-size:17px;padding:13px 20px;border:4px solid #17140F;box-shadow:5px 6px 0 rgba(23,20,15,.9);border-radius:3px;";
+---
+<Base title={title} description={description} page="home">
+  <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} is:inline />
+  <Breadcrumb items={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about' }]} />
+
+  <!-- HERO -->
+  <section class="halftone" style="position:relative;background:#FBF1DA;padding:40px 20px 54px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="position:relative;border:6px solid #17140F;background:#fff;box-shadow:14px 16px 0 rgba(23,20,15,.85);overflow:hidden;">
+        <div class="monster-grid" style="display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:8px;">
+          <div style="padding:46px 24px 46px 46px;position:relative;z-index:3;">
+            <div style={kicker}>Our story · Since {site.established}</div>
+            <h1 style="font-family:'Bangers',cursive;font-weight:400;margin:16px 0 10px;font-size:clamp(52px,8vw,84px);line-height:.86;letter-spacing:1.5px;color:#FFCB05;-webkit-text-stroke:3px #17140F;text-shadow:6px 6px 0 #E23A2E;">ABOUT THE NEWPORT CAFE</h1>
+            <p style="font-size:21px;line-height:1.4;font-weight:700;color:#2a2620;margin:14px 0 0;max-width:460px;">Big plates, family hands, <span style="background:#FFCB05;padding:0 5px;box-decoration-break:clone;-webkit-box-decoration-break:clone;">every day of the year.</span></p>
+          </div>
+          <div style="position:relative;display:grid;place-items:center;min-height:440px;padding:18px;">
+            <div class="rays" style="position:absolute;width:360px;max-width:90%;aspect-ratio:1;border-radius:50%;border:6px solid #17140F;box-shadow:inset 0 0 0 10px rgba(255,255,255,.25);"></div>
+            <div class="halftone-light" style="position:absolute;width:360px;max-width:90%;aspect-ratio:1;border-radius:50%;"></div>
+            <img class="crew-img" src="/img/founder.png" width="509" height="900" alt="The Founder of the Newport Cafe, drawn as a caped superhero" style="position:relative;z-index:2;max-height:420px;max-width:100%;width:auto;height:auto;filter:drop-shadow(7px 9px 0 rgba(23,20,15,.28));" />
+            <div style="position:absolute;top:6px;left:0;transform:rotate(-11deg);z-index:4;" class="ink-outline-hard">
+              <div class="cp-boom" style="width:124px;height:124px;background:#E23A2E;display:grid;place-items:center;text-align:center;">
+                <span style="font-family:'Bangers',cursive;color:#fff;font-size:20px;line-height:.86;text-shadow:1.5px 1.5px 0 #17140F;">EST.<br>2008</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE STORY -->
+  <section style="background:#FBF1DA;padding:10px 20px 60px;">
+    <div style="max-width:780px;margin:0 auto;display:grid;gap:30px;">
+
+      <article class="panel" style="padding:34px 34px 18px;">
+        <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:44px;line-height:.9;margin:0 0 18px;color:#E23A2E;-webkit-text-stroke:1.5px #17140F;text-shadow:3px 3px 0 #FFCB05;">HOW IT STARTED</h2>
+        <p style={para}>David See had never worked in a restaurant before he opened The Newport Cafe in 2008. Before that he spent a decade in real estate, managing about 30 properties and 100 tenants. He'd lived in Newport for more than 25 years, and he wanted to try something different. So he opened a diner on Highway 101.</p>
+      </article>
+
+      <article class="panel" style="padding:34px 34px 18px;">
+        <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:44px;line-height:.9;margin:0 0 18px;color:#2747A8;-webkit-text-stroke:1.5px #17140F;text-shadow:3px 3px 0 #FFCB05;">A HUGE MENU, FROM DAY ONE</h2>
+        <p style={para}>The menu has been huge from the start. There's breakfast, lunch and dinner, and breakfast is served all day: traditional plates, cafe favorites and breakfast burritos. Burgers are hand-pressed to order. There are cafe sandwiches, fried baskets, dinner plates and local seafood like Yaquina Bay oysters, razor clams, Dungeness crab and chowder in a bread bowl. Then there's the <a href="/monster-burger" style="color:#E23A2E;font-weight:800;">Monster burger</a>, which tops out at eight pounds.</p>
+        <p style={para}>David's own order is an omelette.</p>
+      </article>
+
+      <!-- Quote as a speech bubble -->
+      <figure style="margin:0;position:relative;justify-self:center;max-width:560px;">
+        <blockquote style="margin:0;background:#fff;border:4px solid #17140F;border-radius:22px;padding:22px 28px;box-shadow:6px 7px 0 rgba(23,20,15,.85);font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;line-height:1.35;color:#17140F;text-align:center;">“They're not rubbery. They're big, fluffy and light.”</blockquote>
+        <figcaption style="margin-top:14px;text-align:center;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:13px;color:#7a6f57;">David See, on the omelettes</figcaption>
+      </figure>
+
+      <article class="panel" style="padding:34px 34px 18px;">
+        <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:44px;line-height:.9;margin:0 0 18px;color:#E23A2E;-webkit-text-stroke:1.5px #17140F;text-shadow:3px 3px 0 #FFCB05;">A FAMILY RESTAURANT</h2>
+        <p style={para}>It has always been a family restaurant. Over the years David's daughter, son, daughter-in-law and brother-in-law have all worked here, and regulars notice. Plenty of them won't eat anywhere else. News-Times readers have voted the cafe Lincoln County's “Best of the Best” year after year.</p>
+      </article>
+
+      <figure style="margin:0;position:relative;justify-self:center;max-width:620px;">
+        <blockquote style="margin:0;background:#FFCB05;border:4px solid #17140F;border-radius:22px;padding:24px 30px;box-shadow:6px 7px 0 rgba(23,20,15,.85);font-family:'Bangers',cursive;font-weight:400;font-size:34px;line-height:1.05;letter-spacing:.5px;color:#17140F;text-align:center;">“IF THEY WALK IN SAD, WE MAKE SURE THEY'RE HAPPY WHEN THEY LEAVE.”</blockquote>
+        <figcaption style="margin-top:14px;text-align:center;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:13px;color:#7a6f57;">David See, on the goal</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="halftone-red" style="background:#17140F;color:#f1e7d4;padding:48px 20px 26px;border-top:5px solid #17140F;text-align:center;">
+    <div style="max-width:900px;margin:0 auto;">
+      <h2 style="font-family:'Bangers',cursive;font-weight:400;font-size:44px;line-height:.95;margin:0 0 10px;color:#FFCB05;-webkit-text-stroke:1px #000;">COME SAY HI</h2>
+      <p style="font-weight:600;font-size:17px;line-height:1.6;margin:0 0 6px;color:#f1e7d4;">Open 7 a.m. to 10 p.m., every day, holidays included.</p>
+      <p style="font-weight:600;font-size:17px;line-height:1.6;margin:0 0 22px;color:#d8cbb4;">{site.address.street}, {site.address.city} · {site.phoneDisplay}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+        <a class="btn-pop" href={site.phoneHref} style={btn + 'background:#E23A2E;color:#fff;'}>Call {site.phoneDisplay}</a>
+        <a class="btn-pop" href={site.mapsUrl} target="_blank" rel="noopener" style={btn + 'background:#FFCB05;color:#17140F;'}>Get directions</a>
+        <a class="btn-pop" href="/menu" style={btn + 'background:#fff;color:#17140F;'}>See the menu →</a>
+      </div>
+      <div style="margin-top:28px;font-size:13px;color:#988e78;"><SiteCredit /></div>
+    </div>
+  </section>
+</Base>

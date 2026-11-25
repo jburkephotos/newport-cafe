@@ -9,6 +9,7 @@ const links =
         { href: '#lunch', label: 'Lunch / Dinner' },
       ]
     : [
+        { href: '/about', label: 'About' },
         { href: '/#crew', label: 'Crew' },
         { href: '/monster-burger', label: 'Monster' },
         { href: '/#visit', label: 'Visit' },
@@ -20,7 +21,7 @@ const navS = "font-family:'Anton',sans-serif;text-decoration:none;text-transform
 <header style="position:sticky;top:0;z-index:60;background:#fff;border-bottom:4px solid #17140F;box-shadow:0 4px 0 rgba(23,20,15,.12);">
   <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 20px;">
     <a href="/" aria-label={`${site.legalName} home`} style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-      <img src="/img/logo.png" alt={site.legalName} style="height:50px;width:auto;" />
+      <img src="/img/logo.png" width="240" height="170" alt={site.legalName} style="height:50px;width:auto;" />
     </a>
     <nav style="display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end;">
       {links.map((l) => <a class="nav-link" href={l.href} style={navS}>{l.label}</a>)}
